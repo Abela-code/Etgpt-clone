@@ -1,10 +1,10 @@
 .message {
   display: flex;
-  padding: 0 24px;
+  padding: 0 16px;
   max-width: 800px;
   margin: 0 auto;
   width: 100%;
-  gap: 16px;
+  gap: 12px;
 }
 
 .message.user {
@@ -12,8 +12,8 @@
 }
 
 .avatar {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -31,12 +31,14 @@
 
 .content {
   background-color: var(--bg-input);
-  padding: 12px 16px;
+  padding: 10px 14px;
   border-radius: 16px;
   font-size: 15px;
-  line-height: 1.6;
-  max-width: 80%;
+  line-height: 1.55;
+  max-width: min(80%, 100%);
   white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .message.assistant .content {
@@ -46,109 +48,136 @@
   white-space: normal;
 }
 
-/* Markdown Styles */
 .markdownBody {
   font-family: inherit;
   line-height: 1.6;
   color: var(--text-primary);
+  overflow-x: auto;
 }
 
 .markdownBody p {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
-
 .markdownBody p:last-child {
   margin-bottom: 0;
 }
 
 .markdownBody h1,
 .markdownBody h2,
-.markdownBody h3,
-.markdownBody h4,
-.markdownBody h5,
-.markdownBody h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
+.markdownBody h3 {
+  margin-top: 16px;
+  margin-bottom: 10px;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.3;
 }
 
 .markdownBody h1 {
-  font-size: 2em;
+  font-size: 1.4em;
 }
 .markdownBody h2 {
-  font-size: 1.5em;
+  font-size: 1.25em;
 }
 .markdownBody h3 {
-  font-size: 1.25em;
+  font-size: 1.1em;
 }
 
 .markdownBody ul,
 .markdownBody ol {
-  margin-top: 8px;
-  margin-bottom: 16px;
-  padding-left: 2em;
+  margin: 8px 0 12px;
+  padding-left: 1.4em;
 }
 
 .markdownBody li {
-  margin-bottom: 8px;
-}
-
-.markdownBody li > p {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 4px;
 }
 
 .markdownBody a {
   color: #3b82f6;
-  text-decoration: none;
-}
-
-.markdownBody a:hover {
-  text-decoration: underline;
 }
 
 .markdownBody blockquote {
-  margin: 0 0 16px 0;
-  padding: 0 1em;
+  margin: 0 0 12px;
+  padding: 0 0.8em;
   color: var(--text-secondary);
-  border-left: 0.25em solid var(--border-color);
+  border-left: 3px solid var(--border-color);
 }
 
-.markdownBody code {
-  padding: 0.2em 0.4em;
-  margin: 0;
+.codeBlock {
+  margin: 12px 0 14px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 100%;
+}
+
+.codeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: #1a1a1a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 8px;
+}
+
+.codeLang {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: lowercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.copyBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.copyBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+.inlineCode {
+  padding: 0.15em 0.35em;
   font-size: 85%;
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    SF Mono,
-    Menlo,
-    Consolas,
-    Liberation Mono,
-    monospace;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  word-break: break-all;
 }
 
-.markdownBody pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  background-color: #0d0d0d;
-  border-radius: 6px;
-  margin-bottom: 16px;
+/* Syntax highlighter scroll on small screens */
+.codeBlock :global(pre),
+.codeBlock :global(div) {
+  max-width: 100%;
+  overflow-x: auto !important;
 }
 
-.markdownBody pre code {
-  display: inline;
-  max-width: none;
-  padding: 0;
-  margin: 0;
-  overflow: visible;
-  line-height: inherit;
-  word-wrap: normal;
-  background-color: transparent;
-  border: 0;
+@media (max-width: 600px) {
+  .message {
+    padding: 0 12px;
+    gap: 8px;
+  }
+  .avatar {
+    width: 24px;
+    height: 24px;
+  }
+  .content {
+    font-size: 14.5px;
+    max-width: calc(100% - 36px);
+    padding: 10px 12px;
+  }
+  .message.assistant .content {
+    max-width: 100%;
+  }
 }

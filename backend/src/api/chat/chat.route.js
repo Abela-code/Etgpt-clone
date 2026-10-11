@@ -1,13 +1,23 @@
-import express from 'express';
+import express from "express";
+import {
+  listChatsController,
+  createChatController,
+  renameChatController,
+  deleteChatController,
+  getChatMessagesController,
+  streamConversationController,
+} from "./controller/chat.controller.js";
+import { requireAuth } from "../../middleware/auth.js";
 
 const chatRouter = express.Router();
 
-import {createConversationController , getConversationController} from './controller/chat.controller.js';
+chatRouter.use(requireAuth);
 
-// /api/chat/conversations
-chatRouter.post('/conversations', createConversationController);
-
-chatRouter.get('/conversations', getConversationController);
-
+chatRouter.get("/chats", listChatsController);
+chatRouter.post("/chats", createChatController);
+chatRouter.patch("/chats/:id", renameChatController);
+chatRouter.delete("/chats/:id", deleteChatController);
+chatRouter.get("/chats/:id/messages", getChatMessagesController);
+chatRouter.post("/conversations/stream", streamConversationController);
 
 export default chatRouter;

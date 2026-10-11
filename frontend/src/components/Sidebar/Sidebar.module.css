@@ -1,113 +1,230 @@
 .sidebar {
-  width: 260px;
-  background-color: var(--bg-sidebar);
+  width: 100%;
+  min-width: 260px;
+  background: var(--bg-sidebar);
   display: flex;
   flex-direction: column;
-  padding: 12px;
+  height: 100%;
+  min-height: 100dvh;
   border-right: 1px solid var(--border-color);
+  flex-shrink: 0;
 }
 
 .header {
+  padding: 12px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  padding: 8px;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--text-secondary);
+  gap: 8px;
+  padding: 4px;
 }
 
-.iconBtn {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
+.brand {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.newChatBtn {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 4px;
-  border-radius: 6px;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 14px;
+  cursor: pointer;
 }
 
-.iconBtn:hover {
-  background-color: var(--bg-hover);
-  color: var(--text-primary);
+.newChatBtn:hover {
+  background: var(--bg-hover);
+}
+
+.sectionLabel {
+  padding: 8px 16px 4px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
 }
 
 .nav {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 8px 16px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  flex: 1;
+  gap: 2px;
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
 }
 
-.item {
+.empty {
+  padding: 12px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.chatItem {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
+  gap: 8px;
+  padding: 8px 10px;
   border-radius: 8px;
-  color: var(--text-primary);
-  text-decoration: none;
-  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  color: var(--text-secondary);
+  min-height: 40px;
 }
 
-.item:hover {
-  background-color: var(--bg-hover);
+.chatItem:hover,
+.chatItem.active {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.chatIcon {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.chatTitle {
+  flex: 1;
+  font-size: 13.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.actions {
+  display: none;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.chatItem:hover .actions,
+.chatItem.active .actions {
+  display: flex;
+}
+
+/* Always show actions on touch devices */
+@media (hover: none) {
+  .actions {
+    display: flex;
+    opacity: 0.7;
+  }
+}
+
+.iconBtn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.iconBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.editRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.editInput {
+  flex: 1;
+  min-width: 0;
+  background: #2a2a2a;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-primary);
+  padding: 4px 8px;
+  font-size: 13px;
+  outline: none;
 }
 
 .footer {
-  margin-top: auto;
+  padding: 12px;
+  border-top: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.user {
+.footerUser {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
+  min-width: 0;
 }
 
-.user:hover {
-  background-color: var(--bg-hover);
-}
-
-.avatar {
+.footerAvatar {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: #3b82f6;
+  background: #10a37f;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
+  color: #fff;
+  flex-shrink: 0;
 }
 
-.userInfo {
+.footerMeta {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
-.userName {
-  font-size: 14px;
-  font-weight: 500;
+.footerName,
+.footerEmail {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.userPlan {
-  font-size: 12px;
+.footerName {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.footerEmail {
+  font-size: 11px;
   color: var(--text-secondary);
+}
+
+.footerLogout {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.footerLogout:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
 }

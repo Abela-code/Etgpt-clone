@@ -1,7 +1,33 @@
-CREAT TABLE IF NOT EXISTS conversations(
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-    role ENUM ('USER', 'assistant') NOT NULL,
+-- Users
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(120) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Chats (sessions) — scoped to user
+CREATE TABLE IF NOT EXISTS chats (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNSIGNED NOT NULL,
+    title VARCHAR(255) NOT NULL DEFAULT 'New chat',
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_chats_user (user_id),
+    CONSTRAINT fk_chats_user
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Messages belonging to a chat
+CREATE TABLE IF NOT EXISTS conversations (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    chat_id BIGINT UNSIGNED NOT NULL,
+    role ENUM('user', 'assistant') NOT NULL,
     content TEXT NOT NULL,
     token_count INT UNSIGNED NOT NULL DEFAULT 0,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_chat_id (chat_id),
+    CONSTRAINT fk_conversations_chat
+      FOREIGN KEY (chat_id) REFERENCES chats(id) ON DELETE CASCADE
 );

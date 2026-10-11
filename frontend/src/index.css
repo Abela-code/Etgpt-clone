@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  --bg-sidebar: #171717;
+  --bg-main: #212121;
+  --bg-input: #2f2f2f;
+  --bg-hover: #2f2f2f;
+  --text-primary: #ececec;
+  --text-secondary: #b4b4b4;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --accent-color: #10a37f;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  height: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  min-height: 100dvh;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent iOS zoom on input focus */
+@media (max-width: 900px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
