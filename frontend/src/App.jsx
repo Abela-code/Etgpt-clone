@@ -9,7 +9,7 @@ import AuthPage from "./pages/AuthPage";
 import { useAuth } from "./context/AuthContext";
 import "./App.css";
 
-const API_BASE_URL = "/api";
+const API_BASE_URL = `${(import.meta.env.VITE_API_BASE_URL || "").trim().replace(/\/+$/, "")}/api`;
 
 function ChatApp() {
   const { user, token, logout } = useAuth();
